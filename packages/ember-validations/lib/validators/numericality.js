@@ -49,17 +49,17 @@ Ember.Validations.validators.local.Numericality = Ember.Validations.validators.B
   call: function() {
     var check, checkValue, fn, form, operator, val;
 
-    if (Ember.isEmpty(this.model.get(this.property))) {
+    if (Ember.isEmpty(this.get('model').get(this.property))) {
       if (this.options.allowBlank === undefined) {
         this.errors.pushObject(this.options.messages.numericality);
       }
-    } else if (!Ember.Validations.patterns.numericality.test(this.model.get(this.property))) {
+    } else if (!Ember.Validations.patterns.numericality.test(this.get('model').get(this.property))) {
       this.errors.pushObject(this.options.messages.numericality);
-    } else if (this.options.onlyInteger === true && !(/^[+\-]?\d+$/.test(this.model.get(this.property)))) {
+    } else if (this.options.onlyInteger === true && !(/^[+\-]?\d+$/.test(this.get('model').get(this.property)))) {
       this.errors.pushObject(this.options.messages.onlyInteger);
-    } else if (this.options.odd  && parseInt(this.model.get(this.property), 10) % 2 === 0) {
+    } else if (this.options.odd  && parseInt(this.get('model').get(this.property), 10) % 2 === 0) {
       this.errors.pushObject(this.options.messages.odd);
-    } else if (this.options.even && parseInt(this.model.get(this.property), 10) % 2 !== 0) {
+    } else if (this.options.even && parseInt(this.get('model').get(this.property), 10) % 2 !== 0) {
       this.errors.pushObject(this.options.messages.even);
     } else {
       for (check in this.CHECKS) {
@@ -71,11 +71,11 @@ Ember.Validations.validators.local.Numericality = Ember.Validations.validators.B
 
         if (!isNaN(parseFloat(this.options[check])) && isFinite(this.options[check])) {
           checkValue = this.options[check];
-        } else if (this.model.get(this.options[check]) !== undefined) {
-          checkValue = this.model.get(this.options[check]);
+        } else if (this.get('model').get(this.options[check]) !== undefined) {
+          checkValue = this.get('model').get(this.options[check]);
         }
 
-        fn = new Function('return ' + this.model.get(this.property) + ' ' + operator + ' ' + checkValue);
+        fn = new Function('return ' + this.get('model').get(this.property) + ' ' + operator + ' ' + checkValue);
 
         if (!fn()) {
           this.errors.pushObject(this.options.messages[check]);

@@ -60,7 +60,7 @@ Ember.Validations.validators.local.Url = Ember.Validations.validators.Base.exten
     this.regexp_ip = new RegExp(ipaddress);
   },
   call: function() {
-    var url = this.model.get(this.property);
+    var url = this.get('model').get(this.property);
 
     if (Ember.isEmpty(url)) {
       if (this.get('options.allowBlank') !== true) {

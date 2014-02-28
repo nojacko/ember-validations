@@ -11,7 +11,7 @@ Ember.Validations.validators.local.Confirmation = Ember.Validations.validators.B
     }
   },
   call: function() {
-    if (this.model.get(this.originalProperty) !== this.model.get(this.property)) {
+    if (this.get('model').get(this.originalProperty) !== this.get('model').get(this.property)) {
       this.errors.pushObject(this.options.message);
     }
   }

@@ -32,7 +32,7 @@ Ember.Validations.validators.local.Length = Ember.Validations.validators.Base.ex
   },
   getValue: function(key) {
     if (this.options[key].constructor === String) {
-      return this.model.get(this.options[key]) || 0;
+      return this.get('model').get(this.options[key]) || 0;
     } else {
       return this.options[key];
     }
@@ -61,7 +61,7 @@ Ember.Validations.validators.local.Length = Ember.Validations.validators.Base.ex
   call: function() {
     var check, fn, message, operator, key;
 
-    if (Ember.isEmpty(this.model.get(this.property))) {
+    if (Ember.isEmpty(this.get('model').get(this.property))) {
       if (this.options.allowBlank === undefined && (this.options.is || this.options.minimum)) {
         this.errors.pushObject(this.renderBlankMessage());
       }
@@ -72,7 +72,7 @@ Ember.Validations.validators.local.Length = Ember.Validations.validators.Base.ex
           continue;
         }
 
-        fn = new Function('return ' + this.tokenizedLength(this.model.get(this.property)) + ' ' + operator + ' ' + this.getValue(key));
+        fn = new Function('return ' + this.tokenizedLength(this.get('model').get(this.property)) + ' ' + operator + ' ' + this.getValue(key));
         if (!fn()) {
           this.errors.pushObject(this.renderMessageFor(key));
         }

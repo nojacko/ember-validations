@@ -10,13 +10,13 @@ Ember.Validations.validators.local.Format = Ember.Validations.validators.Base.ex
     }
    },
    call: function() {
-    if (Ember.isEmpty(this.model.get(this.property))) {
+    if (Ember.isEmpty(this.get('model').get(this.property))) {
       if (this.options.allowBlank === undefined) {
         this.errors.pushObject(this.options.message);
       }
-    } else if (this.options['with'] && !this.options['with'].test(this.model.get(this.property))) {
+    } else if (this.options['with'] && !this.options['with'].test(this.get('model').get(this.property))) {
       this.errors.pushObject(this.options.message);
-    } else if (this.options.without && this.options.without.test(this.model.get(this.property))) {
+    } else if (this.options.without && this.options.without.test(this.get('model').get(this.property))) {
       this.errors.pushObject(this.options.message);
     }
   }
